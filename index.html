@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>MEGAzFM</title>
+<link rel="icon" type="image/png" href="LogoMEGAzFM.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap">
 <style>
 /* ============================================================
    Design plan
    Color: --ink (near-black bg), --paper (warm off-white text on dark),
            --signal (teal dial accent), --wave (lime secondary/brand),
            --line (hairline), --muted (secondary text)
-   Type: --font-display (Fraunces, editorial serif for headlines),
+  Type: --font-display (Poppins for headings),
          --font-body (IBM Plex Sans), --font-mono (IBM Plex Mono, for
          config/code/labels - evokes a tuner readout)
    Layout: full-bleed "on-air" broadcast console - a fixed top dial-bar,
@@ -32,7 +33,7 @@
   --wave-gradient:linear-gradient(135deg,var(--wave),var(--wave-end));
   --line:#2a2530;
   --danger:#e0637a;
-  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-display:'Poppins',var(--font-body);
   --font-body:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,sans-serif;
   --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
   color-scheme:dark;
@@ -179,7 +180,7 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
 @media (max-width:520px){
   .hero{padding-block:52px 44px;}
 }
-.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.04;max-width:14ch;}
+.hero h1{font-family:'Poppins',var(--font-body);font-size:clamp(34px,6vw,58px);font-weight:600;line-height:1.08;max-width:14ch;}
 .hero h1 em{
   background:var(--wave-gradient);
   -webkit-background-clip:text;
@@ -291,6 +292,27 @@ table.cmds td:first-child .private-feature{
   width:fit-content;
   max-width:100%;
 }
+.command-typing-visual{white-space:inherit;}
+.command-typing-char{
+  display:inline-block;
+  position:relative;
+  opacity:0;
+  transition:opacity .04s linear;
+}
+.command-typing-char.is-typed{opacity:1;}
+.command-typing-char.is-caret::after{
+  content:"";
+  position:absolute;
+  top:.1em;
+  right:-2px;
+  width:1px;
+  height:.9em;
+  background:#fff;
+  animation:command-caret-blink .8s steps(1,end) infinite;
+}
+@keyframes command-caret-blink{50%{opacity:0;}}
+@media (prefers-reduced-motion:reduce){.command-typing-char{opacity:1;transition:none;}}
+@media (prefers-reduced-motion:reduce){.command-typing-char.is-caret::after{animation:none;}}
 .private-tooltip{
   position:absolute;
   display:block;
@@ -497,14 +519,14 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     <div class="tablewrap">
       <table class="cmds">
         <tr><th>Comando</th><th>Acesso</th><th>O que faz</th></tr>
-        <tr><td>/nowplaying</td><td>Público</td><td>Mostra a estação e música atual</td></tr>
-        <tr><td>/estacoes</td><td>Público</td><td>Lista estações e disponibilidade</td></tr>
-        <tr><td>/fila</td><td>Público</td><td>Previsão das próximas músicas</td></tr>
-        <tr><td>/historico</td><td>Público</td><td>Últimas músicas tocadas</td></tr>
-        <tr><td>/estacao</td><td>Público (opcional)</td><td>Troca de estação, com cooldown</td></tr>
-        <tr><td>/station, /skip, /reload, /radio</td><td>Administrador</td><td>Controle geral da rádio</td></tr>
-        <tr><td>/volume, /shuffle, /reconnect</td><td>Administrador</td><td>Ajustes de reprodução e conexão</td></tr>
-        <tr><td><span class="private-feature" tabindex="0">/addstream<span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span></td><td>Administrador</td><td>Adiciona uma estação de stream online</td></tr>
+        <tr><td><span class="command-typing" aria-label="/nowplaying">/nowplaying</span></td><td>Público</td><td>Mostra a estação e música atual</td></tr>
+        <tr><td><span class="command-typing" aria-label="/estacoes">/estacoes</span></td><td>Público</td><td>Lista estações e disponibilidade</td></tr>
+        <tr><td><span class="command-typing" aria-label="/fila">/fila</span></td><td>Público</td><td>Previsão das próximas músicas</td></tr>
+        <tr><td><span class="command-typing" aria-label="/historico">/historico</span></td><td>Público</td><td>Últimas músicas tocadas</td></tr>
+        <tr><td><span class="command-typing" aria-label="/estacao">/estacao</span></td><td>Público (opcional)</td><td>Troca de estação, com cooldown</td></tr>
+        <tr><td><span class="command-typing" aria-label="/station, /skip, /reload, /radio">/station, /skip, /reload, /radio</span></td><td>Administrador</td><td>Controle geral da rádio</td></tr>
+        <tr><td><span class="command-typing" aria-label="/volume, /shuffle, /reconnect">/volume, /shuffle, /reconnect</span></td><td>Administrador</td><td>Ajustes de reprodução e conexão</td></tr>
+        <tr><td><span class="private-feature" tabindex="0" aria-label="/addstream"><span class="command-typing" aria-hidden="true">/addstream</span><span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span></td><td>Administrador</td><td>Adiciona uma estação de stream online</td></tr>
       </table>
     </div>
   </section>
@@ -631,6 +653,56 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   document.addEventListener('click', function(){
     privateFeatures.forEach(function(el){ el.classList.remove('is-open'); });
   });
+
+  var commandTable = document.querySelector('.cmds');
+  var commandLabels = document.querySelectorAll('.command-typing');
+  commandLabels.forEach(function(label){
+    var fullText = label.textContent;
+    var visual = document.createElement('span');
+    visual.className = 'command-typing-visual';
+    visual.setAttribute('aria-hidden', 'true');
+    Array.from(fullText).forEach(function(character, index){
+      var char = document.createElement('span');
+      char.className = 'command-typing-char';
+      char.textContent = character;
+      visual.appendChild(char);
+    });
+    if (!label.hasAttribute('aria-label')) label.setAttribute('aria-label', fullText);
+    label.textContent = '';
+    label.appendChild(visual);
+  });
+
+  if (commandTable) {
+    function typeCommands(){
+      var chars = commandTable.querySelectorAll('.command-typing-char');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        chars.forEach(function(char){ char.classList.add('is-typed'); });
+        return;
+      }
+      var activeCaret = null;
+      chars.forEach(function(char, index){
+        window.setTimeout(function(){
+          char.classList.add('is-typed');
+          if (activeCaret) activeCaret.classList.remove('is-caret');
+          char.classList.add('is-caret');
+          activeCaret = char;
+        }, index * 24);
+      });
+    }
+    if (!('IntersectionObserver' in window)) {
+      typeCommands();
+    } else {
+      var commandObserver = new IntersectionObserver(function(entries, observer){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            typeCommands();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+      commandObserver.observe(commandTable);
+    }
+  }
 
   // Revela os blocos conforme eles entram na area visivel.
   var revealItems = document.querySelectorAll('.hero > *, .panel > *, footer .wrap > *');
