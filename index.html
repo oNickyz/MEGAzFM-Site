@@ -127,7 +127,23 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   border:1px solid color-mix(in srgb, var(--wave) 70%, black 0%);
   flex:none;
 }
-.gh-btn:hover{filter:brightness(1.08);}
+.gh-btn:hover,.btn-primary:hover{
+  filter:brightness(1.08);
+  background-image:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.58) 48%,transparent 61%),var(--wave-gradient);
+  background-size:250% 100%,100% 100%;
+  background-position:-140% 0,0 0;
+  animation:github-hover-pulse 1.1s ease-out 1 both,github-shine 1.1s ease-out 1 both;
+}
+@keyframes github-hover-pulse{
+  0%{box-shadow:0 0 0 0 transparent;}
+  45%{box-shadow:0 0 14px 4px color-mix(in srgb, var(--wave) 22%, transparent);}
+  100%{box-shadow:0 0 0 0 transparent;}
+}
+@keyframes github-shine{
+  from{background-position:-140% 0,0 0;}
+  to{background-position:140% 0,0 0;}
+}
+@media (prefers-reduced-motion:reduce){.gh-btn:hover,.btn-primary:hover{animation:none;}}
 
 @media (max-width:680px){
   .dial-inner{justify-content:flex-start;}
@@ -151,7 +167,15 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   display:flex;gap:2px;align-items:flex-end;height:34px;margin-block-end:22px;
   max-width:100%;overflow:hidden;
 }
-.freq b{width:3px;background:var(--signal);border-radius:2px;opacity:.55;display:block;flex:none;}
+.freq b{
+  width:3px;background:var(--signal);border-radius:2px;opacity:.55;display:block;flex:none;
+  transform-origin:bottom;animation:freq-pulse 1.1s ease-in-out infinite alternate;
+}
+@keyframes freq-pulse{
+  from{transform:scaleY(.35);opacity:.35;}
+  to{transform:scaleY(1);opacity:.9;}
+}
+@media (prefers-reduced-motion:reduce){.freq b{animation:none;}}
 @media (max-width:520px){
   .hero{padding-block:52px 44px;}
 }
@@ -170,7 +194,6 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   padding:12px 18px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
 }
 .btn-primary{background:var(--wave-gradient);color:var(--ink);}
-.btn-primary:hover{filter:brightness(1.08);}
 .btn-ghost{border:1px solid var(--line);color:var(--paper);}
 .btn-ghost:hover{border-color:var(--signal);}
 .hero-note{margin-block-start:16px;font-size:12.5px;color:var(--muted);font-family:var(--font-mono);}
@@ -216,6 +239,34 @@ table.cmds th{text-align:left;font-family:var(--font-mono);font-size:11px;letter
 table.cmds td{padding:10px 0;border-bottom:1px solid var(--line);vertical-align:top;}
 table.cmds td:first-child{font-family:var(--font-mono);color:var(--signal);white-space:nowrap;padding-right:14px;}
 .tablewrap{overflow-x:auto;}
+@media (max-width:600px){
+  .tablewrap{overflow:visible;}
+  table.cmds{display:block;}
+  table.cmds tbody{display:block;}
+  table.cmds tr{display:block;padding-block:12px;border-bottom:1px solid var(--line);}
+  table.cmds tr:first-child{display:none;}
+  table.cmds td{
+    display:grid;
+    grid-template-columns:76px minmax(0,1fr);
+    gap:10px;
+    padding:4px 0;
+    border:0;
+    min-width:0;
+    white-space:normal;
+    overflow-wrap:anywhere;
+  }
+  table.cmds td:first-child{white-space:normal;}
+  table.cmds td::before{
+    color:var(--muted);
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+  table.cmds td:nth-child(1)::before{content:"Comando";}
+  table.cmds td:nth-child(2)::before{content:"Acesso";}
+  table.cmds td:nth-child(3)::before{content:"O que faz";}
+}
 
 .stations-diagram{display:flex;gap:10px;margin-block-start:24px;flex-wrap:wrap;min-width:0;}
 .station-chip{min-width:0;overflow-wrap:anywhere;}
@@ -224,6 +275,89 @@ table.cmds td:first-child{font-family:var(--font-mono);color:var(--signal);white
   padding:8px 12px;color:var(--muted);
 }
 .station-chip b{color:var(--paper);}
+.private-feature{
+  position:relative;
+  display:inline-block;
+  color:var(--paper);
+  background:color-mix(in srgb, var(--danger) 13%, transparent);
+  border-bottom:1px solid color-mix(in srgb, var(--danger) 58%, transparent);
+  border-radius:3px;
+  padding-inline:2px;
+  cursor:help;
+}
+table.cmds td:first-child .private-feature{
+  color:var(--danger);
+  justify-self:start;
+  width:fit-content;
+  max-width:100%;
+}
+.private-tooltip{
+  position:absolute;
+  display:block;
+  z-index:30;
+  left:0;
+  bottom:100%;
+  width:240px;
+  padding:10px 12px;
+  border:1px solid color-mix(in srgb, var(--danger) 55%, var(--line));
+  border-radius:7px;
+  background:var(--ink-2);
+  box-shadow:0 8px 24px color-mix(in srgb, var(--ink) 35%, transparent);
+  color:var(--paper);
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:400;
+  line-height:1.4;
+  text-align:left;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(4px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+}
+.private-tooltip::after{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:100%;
+  border:5px solid transparent;
+  border-top-color:color-mix(in srgb, var(--danger) 55%, var(--line));
+}
+.private-tooltip::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:100%;
+  height:9px;
+}
+.private-tooltip a{color:var(--wave);font-weight:600;text-decoration:underline;white-space:nowrap;}
+.private-feature:hover .private-tooltip,
+.private-feature:focus .private-tooltip,
+.private-feature.is-open .private-tooltip{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:none;
+}
+@media (max-width:520px){
+  .private-tooltip{
+    position:fixed;
+    left:16px;
+    right:16px;
+    bottom:16px;
+    top:auto;
+    width:auto;
+    transform:translateY(4px);
+  }
+  .private-feature:hover .private-tooltip,
+  .private-feature:focus .private-tooltip,
+  .private-feature.is-open .private-tooltip{transform:translateY(0);}
+  .private-tooltip::before,
+  .private-tooltip::after{display:none;}
+}
 
 .legal h3{font-size:18px;margin-block-start:26px;}
 .legal p, .legal li{font-size:14.5px;color:var(--muted);}
@@ -258,6 +392,7 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   transition-delay:var(--reveal-delay,0ms);
 }
 .reveal.is-visible{opacity:1;transform:none;}
+.reveal.reveal-no-transform{transform:none;}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none;}
 }
@@ -333,12 +468,12 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   <section class="panel wrap" id="docs">
     <span class="panel-tag">Documentação</span>
     <h2>Como o bot funciona</h2>
-    <p class="lede">Cada pasta dentro de <code class="mono">stations/</code> é uma estação. Uma estação local contém arquivos MP3; uma estação de transmissão contém um arquivo <code class="mono">stream.url</code> apontando para um stream de rádio online.</p>
+    <p class="lede">Cada pasta dentro de <code class="mono">stations/</code> é uma estação. Uma estação local contém arquivos MP3; uma estação de transmissão contém um arquivo <span class="private-feature" tabindex="0"><code class="mono">stream.url</code><span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span> apontando para um stream de rádio online.</p>
 
     <div class="stations-diagram">
       <span class="station-chip"><b>stations/lofi/</b> — arquivos .mp3</span>
       <span class="station-chip"><b>stations/chill/</b> — arquivos .mp3</span>
-      <span class="station-chip"><b>stations/radioweb/stream.url</b> — transmissão ao vivo</span>
+      <span class="station-chip"><b class="private-feature" tabindex="0">stations/radioweb/stream.url<span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></b> — transmissão ao vivo</span>
     </div>
 
     <div class="grid3">
@@ -369,7 +504,7 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
         <tr><td>/estacao</td><td>Público (opcional)</td><td>Troca de estação, com cooldown</td></tr>
         <tr><td>/station, /skip, /reload, /radio</td><td>Administrador</td><td>Controle geral da rádio</td></tr>
         <tr><td>/volume, /shuffle, /reconnect</td><td>Administrador</td><td>Ajustes de reprodução e conexão</td></tr>
-        <tr><td>/addstream</td><td>Administrador</td><td>Adiciona uma estação de stream online</td></tr>
+        <tr><td><span class="private-feature" tabindex="0">/addstream<span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span></td><td>Administrador</td><td>Adiciona uma estação de stream online</td></tr>
       </table>
     </div>
   </section>
@@ -385,7 +520,7 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     <h3>2. Uso aceitável</h3>
     <ul>
       <li>Não use o bot para violar os Termos de Serviço do Discord.</li>
-      <li>Você é responsável pelo conteúdo de áudio (arquivos MP3 ou streams) configurado na sua própria instância.</li>
+      <li>Você é responsável pelo conteúdo de áudio (arquivos MP3 ou <span class="private-feature" tabindex="0">streams<span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span>) configurado na sua própria instância.</li>
       <li>Não redistribua conteúdo protegido por direitos autorais sem autorização.</li>
     </ul>
 
@@ -446,6 +581,7 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
       var b = document.createElement('b');
       var h = 6 + Math.round(Math.abs(Math.sin(i * 0.7)) * 26);
       b.style.height = h + 'px';
+      b.style.animationDelay = (i * -0.07) + 's';
       freq.appendChild(b);
     }
   }
@@ -481,10 +617,26 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     });
   }
 
+  var privateFeatures = document.querySelectorAll('.private-feature');
+  privateFeatures.forEach(function(el){
+    el.addEventListener('click', function(event){
+      if (event.target.closest('.private-tooltip')) return;
+      event.stopPropagation();
+      privateFeatures.forEach(function(item){
+        if (item !== el) item.classList.remove('is-open');
+      });
+      el.classList.toggle('is-open');
+    });
+  });
+  document.addEventListener('click', function(){
+    privateFeatures.forEach(function(el){ el.classList.remove('is-open'); });
+  });
+
   // Revela os blocos conforme eles entram na area visivel.
   var revealItems = document.querySelectorAll('.hero > *, .panel > *, footer .wrap > *');
   revealItems.forEach(function(el, index){
     el.classList.add('reveal');
+    if (el.querySelector('.private-feature')) el.classList.add('reveal-no-transform');
     el.style.setProperty('--reveal-delay', Math.min(index * 45, 180) + 'ms');
   });
 
