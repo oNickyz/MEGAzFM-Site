@@ -4,11 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>MEGAzFM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap">
 <style>
 /* ============================================================
    Design plan
    Color: --ink (near-black bg), --paper (warm off-white text on dark),
-           --signal (amber dial accent), --wave (violet secondary/brand),
+           --signal (teal dial accent), --wave (lime secondary/brand),
            --line (hairline), --muted (secondary text)
    Type: --font-display (Fraunces, editorial serif for headlines),
          --font-body (IBM Plex Sans), --font-mono (IBM Plex Mono, for
@@ -23,8 +25,11 @@
   --ink-2:#161319;
   --paper:#f3efe8;
   --muted:#a79fb0;
-  --signal:#f2a641;
-  --wave:#8a5cff;
+  --signal:#35c9b0;
+  --beta-signal:#f2a641;
+  --wave:#c8f542;
+  --wave-end:#d7ff32;
+  --wave-gradient:linear-gradient(135deg,var(--wave),var(--wave-end));
   --line:#2a2530;
   --danger:#e0637a;
   --font-display:'Fraunces',Georgia,'Times New Roman',serif;
@@ -38,8 +43,9 @@
     --ink-2:#ffffff;
     --paper:#19151d;
     --muted:#6b6274;
-    --signal:#b5691a;
-    --wave:#5b34c9;
+    --signal:#0f766e;
+    --beta-signal:#b5691a;
+    --wave:#c8f542;
     --line:#e2dccf;
     color-scheme:light;
   }
@@ -49,8 +55,9 @@
   --ink-2:#ffffff;
   --paper:#19151d;
   --muted:#6b6274;
-  --signal:#b5691a;
-  --wave:#5b34c9;
+  --signal:#0f766e;
+  --beta-signal:#b5691a;
+  --wave:#c8f542;
   --line:#e2dccf;
   color-scheme:light;
 }
@@ -93,8 +100,14 @@ header.dial{
   flex-wrap:wrap;
   row-gap:10px;
 }
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:19px;letter-spacing:.01em;min-width:0;flex:none;}
-.brand-mark{width:26px;height:26px;flex:none;}
+.brand{display:flex;align-items:center;gap:6px;font-family:'Poppins',var(--font-body);font-size:19px;font-weight:600;letter-spacing:.01em;min-width:0;flex:none;}
+.brand [data-botname]{
+  background:var(--wave-gradient);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.brand-mark{width:26px;height:26px;object-fit:contain;flex:none;}
 /* LOGO PLACEHOLDER:
    Para usar uma logo propria, substitua o <svg class="brand-mark">...</svg>
    abaixo por <img class="brand-mark" src="sua-logo.svg" alt=""> */
@@ -109,7 +122,7 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
 .gh-btn{
   font-family:var(--font-mono);font-size:12.5px;letter-spacing:.03em;
   display:inline-flex;align-items:center;gap:8px;
-  background:var(--wave);color:#fff;
+  background:var(--wave-gradient);color:var(--ink);
   padding:9px 14px;border-radius:7px;text-decoration:none;white-space:nowrap;
   border:1px solid color-mix(in srgb, var(--wave) 70%, black 0%);
   flex:none;
@@ -121,6 +134,14 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   .brand{order:1;}
   .gh-btn{order:2;margin-left:auto;padding:8px 12px;font-size:12px;}
   nav.dial-links{order:3;flex:1 1 100%;justify-content:flex-start;gap:14px;}
+}
+
+@media (max-width:400px){
+  .dial-inner{padding-inline:14px;gap:8px;}
+  .brand{font-size:17px;}
+  .gh-btn{font-size:11px;padding:7px 9px;}
+  .wrap{padding-inline:16px;}
+  .oss-box{padding:18px;}
 }
 
 /* hero */
@@ -135,14 +156,20 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   .hero{padding-block:52px 44px;}
 }
 .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.04;max-width:14ch;}
-.hero h1 em{color:var(--wave);font-style:normal;}
+.hero h1 em{
+  background:var(--wave-gradient);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  font-style:normal;
+}
 .hero p.lede{font-size:18px;color:var(--muted);max-width:46ch;margin-block-start:18px;}
 .hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-block-start:30px;}
 .btn{
   font-family:var(--font-mono);font-size:13px;letter-spacing:.03em;
   padding:12px 18px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
 }
-.btn-primary{background:var(--wave);color:#fff;}
+.btn-primary{background:var(--wave-gradient);color:var(--ink);}
 .btn-primary:hover{filter:brightness(1.08);}
 .btn-ghost{border:1px solid var(--line);color:var(--paper);}
 .btn-ghost:hover{border-color:var(--signal);}
@@ -205,12 +232,12 @@ table.cmds td:first-child{font-family:var(--font-mono);color:var(--signal);white
 
 .beta-banner{
   border-bottom:1px solid var(--line);
-  background:color-mix(in srgb, var(--signal) 12%, var(--ink));
+  background:color-mix(in srgb, var(--beta-signal) 12%, var(--ink));
 }
 .beta-banner .wrap{
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:11px;
 }
-.beta-banner .eyebrow{color:var(--signal);flex:none;}
+.beta-banner .eyebrow{color:var(--beta-signal);flex:none;}
 .beta-banner p{margin:0;font-size:13px;color:var(--paper);}
 
 footer{border-top:1px solid var(--line);padding-block:30px;margin-block-start:20px;}
@@ -223,12 +250,16 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   padding:4px 9px;border-radius:6px;cursor:pointer;
 }
 .copy-btn:hover{color:var(--paper);border-color:var(--signal);}
+
+@media (max-width:520px){
+  footer{padding-block:24px;}
+  footer .wrap{align-items:flex-start;gap:14px;}
+  footer .contact{width:100%;justify-content:space-between;gap:10px;}
+  footer .contact p{min-width:0;overflow-wrap:anywhere;}
+}
 </style>
 </head>
 <body>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-
 <script>
   // Nome do bot centralizado - mude apenas aqui para atualizar o site inteiro.
   window.MEGAZFM = { botName: "MEGAzFM", githubUrl: "https://github.com/oNickyz/MEGAzFM-DCBot" };
@@ -237,10 +268,7 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 <header class="dial">
   <div class="dial-inner">
     <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-opacity=".35"/>
-        <path d="M6 18 L9 14 L12 20 L15 10 L18 22 L21 13 L24 17 L26 15" stroke="#f2a641" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <img class="brand-mark" src="LogoMEGAzFM.png" alt="MEGAzFM">
       <span data-botname>MEGAzFM</span>
     </div>
     <nav class="dial-links">
