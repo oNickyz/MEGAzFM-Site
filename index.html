@@ -251,6 +251,17 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 }
 .copy-btn:hover{color:var(--paper);border-color:var(--signal);}
 
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s ease;
+  transition-delay:var(--reveal-delay,0ms);
+}
+.reveal.is-visible{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
+}
+
 @media (max-width:520px){
   footer{padding-block:24px;}
   footer .wrap{align-items:flex-start;gap:14px;}
@@ -468,6 +479,27 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
         } catch (e2) { /* silenciosamente ignora se nada funcionar */ }
       }
     });
+  }
+
+  // Revela os blocos conforme eles entram na area visivel.
+  var revealItems = document.querySelectorAll('.hero > *, .panel > *, footer .wrap > *');
+  revealItems.forEach(function(el, index){
+    el.classList.add('reveal');
+    el.style.setProperty('--reveal-delay', Math.min(index * 45, 180) + 'ms');
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    revealItems.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var revealObserver = new IntersectionObserver(function(entries, observer){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+    revealItems.forEach(function(el){ revealObserver.observe(el); });
   }
 })();
 </script>
