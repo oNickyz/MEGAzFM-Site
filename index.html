@@ -76,7 +76,7 @@ body{
 }
 h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;}
 a{color:inherit;}
-.wrap{max-width:920px;margin:0 auto;padding-inline:20px;}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;}
 .mono{font-family:var(--font-mono);}
 .eyebrow{
   font-family:var(--font-mono);
@@ -96,7 +96,7 @@ header.dial{
   border-bottom:1px solid var(--line);
 }
 .dial-inner{
-  max-width:920px;margin:0 auto;padding:14px 20px;
+  max-width:1080px;margin:0 auto;padding:14px 20px;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   flex-wrap:wrap;
   row-gap:10px;
@@ -162,12 +162,34 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
 }
 
 /* hero */
-.hero{padding-block:76px 64px;position:relative;overflow:hidden;}
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(220px,.55fr);
+  grid-template-areas:"headline signal" "description description" "actions actions" "note note";
+  column-gap:clamp(28px,5vw,54px);
+  padding-block:76px 64px;
+  position:relative;
+  overflow:hidden;
+}
 .freq{
   font-family:var(--font-mono);font-size:13px;color:var(--muted);
   display:flex;gap:2px;align-items:flex-end;height:34px;margin-block-end:22px;
   max-width:100%;overflow:hidden;
 }
+.hero-signal{
+  grid-area:signal;
+  position:relative;
+  top:-22px;
+  align-self:center;
+  justify-self:end;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:10px;
+  max-width:100%;
+}
+.hero .freq{justify-content:flex-end;width:100%;margin:0;}
+.hero-signal .eyebrow{max-width:23ch;text-align:right;}
 .freq b{
   width:3px;background:var(--signal);border-radius:2px;opacity:.55;display:block;flex:none;
   transform-origin:bottom;animation:freq-pulse 1.1s ease-in-out infinite alternate;
@@ -180,7 +202,7 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
 @media (max-width:520px){
   .hero{padding-block:52px 44px;}
 }
-.hero h1{font-family:'Poppins',var(--font-body);font-size:clamp(34px,6vw,58px);font-weight:600;line-height:1.08;max-width:14ch;}
+.hero h1{grid-area:headline;align-self:center;margin-block-start:0;font-family:'Poppins',var(--font-body);font-size:clamp(34px,6vw,58px);font-weight:600;line-height:1.08;max-width:14ch;}
 .hero h1 em{
   background:var(--wave-gradient);
   -webkit-background-clip:text;
@@ -188,8 +210,8 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
   color:transparent;
   font-style:normal;
 }
-.hero p.lede{font-size:18px;color:var(--muted);max-width:46ch;margin-block-start:18px;}
-.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-block-start:30px;}
+.hero p.lede{grid-area:description;font-size:18px;color:var(--muted);max-width:46ch;margin-block-start:18px;}
+.hero .cta-row{grid-area:actions;display:flex;gap:12px;flex-wrap:wrap;margin-block-start:30px;}
 .btn{
   font-family:var(--font-mono);font-size:13px;letter-spacing:.03em;
   padding:12px 18px;border-radius:8px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
@@ -197,7 +219,13 @@ nav.dial-links a:hover{color:var(--paper);border-color:var(--signal);}
 .btn-primary{background:var(--wave-gradient);color:var(--ink);}
 .btn-ghost{border:1px solid var(--line);color:var(--paper);}
 .btn-ghost:hover{border-color:var(--signal);}
-.hero-note{margin-block-start:16px;font-size:12.5px;color:var(--muted);font-family:var(--font-mono);}
+.hero-note{grid-area:note;margin-block-start:16px;font-size:12.5px;color:var(--muted);font-family:var(--font-mono);}
+@media (max-width:700px){
+  .hero{display:block;}
+  .hero-signal{position:static;top:auto;align-items:flex-start;justify-self:start;width:100%;margin-block-end:12px;}
+  .hero .freq{justify-content:flex-start;}
+  .hero-signal .eyebrow{max-width:none;text-align:left;}
+}
 
 /* console panels */
 .panel{border-top:1px solid var(--line);padding-block:52px;}
@@ -458,9 +486,11 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 
 <main>
   <section class="hero wrap" id="home">
-    <div class="freq" aria-hidden="true"></div>
-    <span class="eyebrow">Rádio de código aberto para Discord</span>
-    <h1 style="margin-block-start:12px;">Uma frequência <em>própria</em> para o seu servidor.</h1>
+    <div class="hero-signal">
+      <div class="freq" aria-hidden="true"></div>
+      <span class="eyebrow">Rádio de código aberto para Discord</span>
+    </div>
+    <h1>Uma frequência <em>própria</em> para o seu servidor.</h1>
     <p class="lede"><span data-botname>MEGAzFM</span> é um bot de rádio 24/7 para Discord: toca arquivos MP3 em estações que você organiza, com fila, histórico, volume e controle de reprodução — tudo local, sem depender de serviços externos.</p>
     <div class="cta-row">
       <a class="btn btn-primary" data-gh-link href="#" target="_blank" rel="noopener">Open Source no GitHub ↗</a>
