@@ -491,12 +491,12 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
       <span class="eyebrow">Rádio de código aberto para Discord</span>
     </div>
     <h1>Uma frequência <em>própria</em> para o seu servidor.</h1>
-    <p class="lede"><span data-botname>MEGAzFM</span> é um bot de rádio 24/7 para Discord: toca arquivos MP3 em estações que você organiza, com fila, histórico, volume e controle de reprodução — tudo local, sem depender de serviços externos.</p>
+    <p class="lede"><span data-botname>MEGAzFM</span> é um bot de rádio 24/7 para Discord: toca arquivos MP3 e streams HTTP(S) diretos em estações que você organiza, com fila, histórico, volume e controle de reprodução. Configurações e arquivos ficam na instância que você opera; a reprodução usa o Discord e, se configurado, o provedor do stream.</p>
     <div class="cta-row">
       <a class="btn btn-primary" data-gh-link href="#" target="_blank" rel="noopener">Open Source no GitHub ↗</a>
       <a class="btn btn-ghost" href="#docs">Ver documentação</a>
     </div>
-    <p class="hero-note">Código público. Sem cadastro. Sem telemetria escondida.</p>
+    <p class="hero-note">Código público. Esta página não usa cadastro nem analytics próprios.</p>
   </section>
 
   <section class="panel wrap" id="open-source">
@@ -564,45 +564,63 @@ footer .contact{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   <section class="panel legal wrap" id="termos">
     <span class="panel-tag">Legal</span>
     <h2>Termos de Serviço</h2>
-    <p class="legal-updated">Última revisão: setembro de 2026</p>
+    <p class="legal-updated">Última revisão: 30 de setembro de 2026</p>
 
-    <h3>1. O que é o serviço</h3>
-    <p><span data-botname>MEGAzFM</span> é um bot de rádio para Discord, distribuído como projeto de código aberto (MEGAzFM Core). Servidores que adicionam uma instância do bot fazem isso por sua própria conta, seja usando uma instância hospedada por terceiros, seja hospedando sua própria cópia a partir do código público.</p>
+    <h3>1. Escopo</h3>
+    <p>Este site apresenta o <span data-botname>MEGAzFM</span> Core, um software de código aberto para operar um bot de rádio no Discord. O Core é executado pelo administrador que o instala; este site não fornece, por si só, uma instância central do bot nem garante hospedagem. Uma instância oficial ou privada pode ser operada separadamente e ter recursos e práticas próprios. Cópias e forks são controlados por quem os opera.</p>
 
-    <h3>2. Uso aceitável</h3>
+    <h3>2. Uso e responsabilidades</h3>
     <ul>
-      <li>Não use o bot para violar os Termos de Serviço do Discord.</li>
-      <li>Você é responsável pelo conteúdo de áudio (arquivos MP3 ou <span class="private-feature" tabindex="0">streams<span class="private-tooltip" role="tooltip">Streams de vídeo do YouTube são exclusivos da versão Private. <a data-gh-link href="#" target="_blank" rel="noopener">Ler mais no GitHub ↗</a></span></span>) configurado na sua própria instância.</li>
-      <li>Não redistribua conteúdo protegido por direitos autorais sem autorização.</li>
+      <li>Ao usar uma instância do bot, cumpra os Termos de Serviço e as políticas do Discord, além das leis aplicáveis.</li>
+      <li>Quem administra uma instância é responsável por sua configuração, permissões, segurança do token, hospedagem e conteúdo de áudio: arquivos locais e URLs de streams HTTP(S) diretos configurados nessa instância.</li>
+      <li>Obtenha os direitos e autorizações necessários para reproduzir ou disponibilizar músicas e outros conteúdos. O Core não verifica licenças nem concede direitos sobre o conteúdo configurado.</li>
+      <li>O operador da instância deve informar os usuários sobre seu próprio tratamento de dados e atender às solicitações que lhe forem dirigidas.</li>
     </ul>
 
-    <h3>3. Sem garantias</h3>
-    <p>O software é fornecido "como está", sem garantia de disponibilidade contínua, ausência de bugs ou adequação a um propósito específico.</p>
+    <h3>3. Serviços de terceiros</h3>
+    <p>O funcionamento depende do Discord e pode depender do serviço que hospeda a instância e do provedor de qualquer stream configurado. Esses serviços têm termos, políticas, disponibilidade e práticas próprias. O operador da instância é responsável por avaliar e cumprir os termos aplicáveis a eles.</p>
 
-    <h3>4. Código aberto</h3>
-    <p>O código do Core está público no GitHub. O uso, modificação e redistribuição do código seguem os termos da licença do projeto (ver seção "Open Source" acima).</p>
+    <h3>4. Disponibilidade e licença</h3>
+    <p>O software é fornecido "como está", nos termos da licença MIT, sem promessa de disponibilidade contínua, ausência de erros ou adequação a um propósito específico. A licença e seus avisos regem o uso, a modificação e a redistribuição do código; consulte o arquivo LICENSE no repositório. Nenhum destes termos substitui a licença do software.</p>
+
+    <h3>5. Alterações e contato</h3>
+    <p>Estes termos podem ser atualizados quando o site ou o projeto mudar; a data de revisão será ajustada nesta página. Dúvidas sobre este site ou sobre uma instância operada oficialmente podem ser enviadas para <a href="mailto:contato.megazstudios@gmail.com">contato.megazstudios@gmail.com</a>. Para uma instância de terceiros, contate quem a opera.</p>
   </section>
 
   <section class="panel legal wrap" id="privacidade">
     <span class="panel-tag">Legal</span>
     <h2>Política de Privacidade</h2>
-    <p class="legal-updated">Última revisão: setembro de 2026</p>
+    <p class="legal-updated">Última revisão: 30 de setembro de 2026</p>
 
-    <h3>1. Dados processados</h3>
-    <p>O bot processa apenas o mínimo necessário para funcionar dentro do Discord: IDs de servidor, canal de voz e, quando configurado, canal de texto para avisos. Comandos de administrador (como troca de estação ou volume) não armazenam dados pessoais.</p>
+    <h3>1. Quem é responsável</h3>
+    <p>O Core é software auto-hospedado e não envia dados para um banco central do projeto. Quem instala e opera uma instância decide como ela é hospedada e responde pelo tratamento feito por essa instância. Esta seção descreve o comportamento do Core público e desta página conforme o código publicado; uma instância oficial/privada ou um fork pode ter práticas diferentes. Para instâncias de terceiros, consulte o respectivo operador.</p>
 
-    <h3>2. O que NÃO é coletado</h3>
+    <h3>2. Dados tratados pelo bot</h3>
     <ul>
-      <li>Conteúdo de mensagens do servidor.</li>
-      <li>Dados de áudio dos usuários (o bot não grava nem escuta o canal de voz).</li>
-      <li>Informações pessoais além dos identificadores técnicos do Discord necessários para operar.</li>
+      <li>Para conectar e operar no Discord, o operador configura localmente o token do bot e IDs da aplicação, servidor e canais. O bot usa informações de servidor/canal e dados técnicos das interações de comandos recebidas pela API do Discord.</li>
+      <li>O comando público de troca de estação usa o ID do usuário para aplicar cooldowns. Esse estado é mantido em memória pelo processo e não é gravado pelo Core em banco de dados; é perdido quando o processo reinicia.</li>
+      <li>Nomes de estações, nomes de arquivos de áudio e URLs de streams podem ser lidos ou configurados localmente. O comando de stream grava a URL em um arquivo da estação; o operador pode removê-la apagando ou alterando esse arquivo.</li>
+      <li>O bot envia áudio ao canal de voz do Discord. Quando uma URL de stream é usada, o servidor da instância solicita o conteúdo ao provedor indicado pela URL.</li>
     </ul>
 
-    <h3>3. Armazenamento</h3>
-    <p>Configurações de estação e cooldowns ficam apenas em memória/arquivos locais da instância que executa o bot — não existe um servidor central coletando dados de todas as instâncias.</p>
+    <h3>3. O que o Core não faz</h3>
+    <ul>
+      <li>Não solicita o conteúdo de mensagens comuns do servidor: o Core usa as intents de servidores e estados de voz, não a intent de conteúdo de mensagens.</li>
+      <li>Não grava nem monitora o áudio dos participantes. O áudio reproduzido pelo bot é enviado ao Discord para tocar no canal de voz.</li>
+      <li>Não implementa, no código público, analytics, publicidade ou um serviço central de coleta do MEGAzFM.</li>
+    </ul>
 
-    <h3>4. Instâncias de terceiros</h3>
-    <p>Se você usa uma instância hospedada por outra pessoa (um fork), a política de privacidade pode variar de acordo com quem opera aquela instância específica.</p>
+    <h3>4. Armazenamento e retenção</h3>
+    <p>O Core mantém o estado de reprodução e cooldowns em memória enquanto o processo está ativo. IDs e token configurados, arquivos de estação e URLs de stream podem permanecer no ambiente ou disco da instância até que seu operador os altere ou exclua. O Core escreve mensagens operacionais e erros no console; elas podem incluir nomes de faixas, URLs de stream ou detalhes técnicos. O provedor de hospedagem pode armazenar logs e dados de conexão conforme sua própria política e configuração. O Core não define nem controla esse prazo.</p>
+
+    <h3>5. Site e serviços externos</h3>
+    <p>Esta página não implementa formulários, contas, cookies próprios ou analytics próprios. Ela solicita fontes ao Google Fonts, o que pode transmitir ao Google dados técnicos da conexão, como endereço IP e informações do navegador. Links para GitHub e outros serviços só são acessados quando você os abre; esses provedores passam a tratar os dados da sua visita segundo suas próprias políticas. O provedor que hospeda este arquivo também pode registrar dados técnicos de acesso, de acordo com sua configuração e política.</p>
+
+    <h3>6. Compartilhamento e direitos</h3>
+    <p>O Core comunica-se com o Discord para oferecer os recursos configurados; streams, hospedagem e serviços externos do site recebem os dados necessários às respectivas conexões. Não há compartilhamento com um banco central do MEGAzFM pelo Core público. Quando a legislação aplicável, incluindo a LGPD, conceder direitos sobre seus dados, você pode solicitar informações ou exercer esses direitos com quem controla a instância. Para este site ou uma instância oficial operada pelo projeto, escreva para <a href="mailto:contato.megazstudios@gmail.com">contato.megazstudios@gmail.com</a>; para outras instâncias, contate seu operador. Pedidos podem exigir confirmação razoável de identidade e ficam sujeitos às obrigações legais aplicáveis.</p>
+
+    <h3>7. Atualizações</h3>
+    <p>Esta política pode ser revisada para refletir mudanças no site ou no Core. A data no início desta seção indica a revisão mais recente.</p>
   </section>
 </main>
 
